@@ -41,7 +41,7 @@
         "axios": "^1.12.2",
         "bcryptjs": "^3.0.2",
         "cors": "^2.8.5",
-        "dotenv": "^17.2.3",
+        "dotenv": "^16.4.5",
         "eslint": "^9.39.1",
         "eslint-plugin-react": "^7.37.5",
         "express": "^4.21.2",
