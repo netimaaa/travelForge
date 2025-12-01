@@ -1,41 +1,18 @@
 import 'dotenv/config'
 import express from 'express'
-import helmet from 'helmet'
 import morgan from 'morgan'
-import { corsMiddleware } from './middleware/cors'
 import { errorHandler, notFoundHandler } from './middleware/errorHandler'
 import cityRoutes from './routes/cityRoutes'
 import tripRoutes from './routes/tripRoutes'
 import currencyRoutes from './routes/currencyRoutes'
 import travelBotRoutes from './routes/travelBotRoutes'
 import authRoutes from './routes/authRoutes'
+import cors from 'cors'
 
 const app = express()
 const PORT = process.env.PORT || 5000
 
-app.use((req, res, next) => {
-  const origin = req.headers.origin
-  
-  // Allow all origins
-  if (origin) {
-    res.header('Access-Control-Allow-Origin', origin)
-  } else {
-    res.header('Access-Control-Allow-Origin', '*')
-  }
-  res.header('Access-Control-Allow-Credentials', 'true')
-  
-  if (req.method === 'OPTIONS') {
-    console.log('OPTIONS request received from:', origin)
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH')
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept')
-    res.header('Access-Control-Max-Age', '86400')
-    console.log('OPTIONS response sent with CORS headers')
-    return res.sendStatus(204)
-  }
-  next()
-})
-
-app.use(corsMiddleware)
+app.use(cors())
 app.use(morgan('combined'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

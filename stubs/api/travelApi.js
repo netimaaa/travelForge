@@ -17,7 +17,7 @@ const router = Router()
 
 // Import TypeScript routes
 let cityRoutes, tripRoutes, currencyRoutes, travelBotRoutes, authRoutes
-let corsMiddleware, errorHandler, notFoundHandler
+let errorHandler, notFoundHandler
 
 try {
   // Try to load compiled JavaScript first
@@ -28,7 +28,6 @@ try {
   currencyRoutes = require(path.join(backendPath, 'routes/currencyRoutes')).default
   travelBotRoutes = require(path.join(backendPath, 'routes/travelBotRoutes')).default
   authRoutes = require(path.join(backendPath, 'routes/authRoutes')).default
-  corsMiddleware = require(path.join(backendPath, 'middleware/cors')).corsMiddleware
   errorHandler = require(path.join(backendPath, 'middleware/errorHandler')).errorHandler
   notFoundHandler = require(path.join(backendPath, 'middleware/errorHandler')).notFoundHandler
   console.log('✅ Loaded backend from compiled JavaScript')
@@ -42,7 +41,6 @@ try {
     currencyRoutes = require(path.join(backendPath, 'routes/currencyRoutes')).default
     travelBotRoutes = require(path.join(backendPath, 'routes/travelBotRoutes')).default
     authRoutes = require(path.join(backendPath, 'routes/authRoutes')).default
-    corsMiddleware = require(path.join(backendPath, 'middleware/cors')).corsMiddleware
     errorHandler = require(path.join(backendPath, 'middleware/errorHandler')).errorHandler
     notFoundHandler = require(path.join(backendPath, 'middleware/errorHandler')).notFoundHandler
     console.log('✅ Loaded backend from TypeScript source')
@@ -51,9 +49,6 @@ try {
     throw tsError
   }
 }
-
-// Apply CORS middleware
-router.use(corsMiddleware)
 
 // Travel API routes
 router.use('/cities', cityRoutes)
