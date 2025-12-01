@@ -1,0 +1,10 @@
+{
+  "watch": ["stubs/api/backend"],
+  "ext": "ts,json",
+  "ignore": ["stubs/api/backend/**/*.spec.ts", "node_modules"],
+  "exec": "ts-node --project tsconfig.backend.json stubs/api/backend/server.ts",
+  "env": {
+    "NODE_ENV": "development"
+  }
+}
+

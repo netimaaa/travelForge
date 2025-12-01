@@ -15,7 +15,12 @@ const PORT = process.env.PORT || 5000
 
 app.use((req, res, next) => {
   const origin = req.headers.origin
-  const allowedOrigins = ['http://localhost:3000', 'http://127.0.0.1:3000']
+  const allowedOrigins = [
+    'http://localhost:3000', 
+    'http://127.0.0.1:3000',
+    'http://localhost:8099',
+    'http://127.0.0.1:8099'
+  ]
   
   if (origin && allowedOrigins.includes(origin)) {
     res.header('Access-Control-Allow-Origin', origin)

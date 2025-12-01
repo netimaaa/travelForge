@@ -12,6 +12,20 @@ module.exports = {
       historyApiFallback: true,
       headers: {
         'Content-Security-Policy': "default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';"
+      },
+      // Proxy API requests to separate backend server on port 5000
+      proxy: {
+        '/api': {
+          target: 'http://localhost:5000',
+          changeOrigin: true,
+          secure: false,
+          // Don't proxy requests that are handled by stubs/api
+          bypass: function(req, res, proxyOptions) {
+            // If you want to use stubs/api for some routes, add conditions here
+            // For now, all /api requests go to backend on port 5000
+            return false;
+          }
+        }
       }
     }
   },

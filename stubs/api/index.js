@@ -126,7 +126,7 @@ router.get('/card-image/:uuid', async (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', `images/${uuid}.png`))
 })
 
-// Mount travel API routes
-router.use('/api', travelApi)
+// Mount travel API routes (brojs already adds /api prefix via apiPath)
+router.use('/', travelApi)
 
 module.exports = router;

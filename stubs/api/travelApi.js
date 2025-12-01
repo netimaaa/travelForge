@@ -22,6 +22,7 @@ let corsMiddleware, errorHandler, notFoundHandler
 try {
   // Try to load compiled JavaScript first
   const backendPath = path.resolve(__dirname, 'backend-dist')
+  console.log('Trying to load from compiled backend:', backendPath)
   cityRoutes = require(path.join(backendPath, 'routes/cityRoutes')).default
   tripRoutes = require(path.join(backendPath, 'routes/tripRoutes')).default
   currencyRoutes = require(path.join(backendPath, 'routes/currencyRoutes')).default
@@ -30,17 +31,25 @@ try {
   corsMiddleware = require(path.join(backendPath, 'middleware/cors')).corsMiddleware
   errorHandler = require(path.join(backendPath, 'middleware/errorHandler')).errorHandler
   notFoundHandler = require(path.join(backendPath, 'middleware/errorHandler')).notFoundHandler
+  console.log('✅ Loaded backend from compiled JavaScript')
 } catch (e) {
   // Fallback to TypeScript source files
+  console.log('⚠️  Compiled backend not found, loading from TypeScript source:', e.message)
   const backendPath = path.resolve(__dirname, 'backend')
-  cityRoutes = require(path.join(backendPath, 'routes/cityRoutes')).default
-  tripRoutes = require(path.join(backendPath, 'routes/tripRoutes')).default
-  currencyRoutes = require(path.join(backendPath, 'routes/currencyRoutes')).default
-  travelBotRoutes = require(path.join(backendPath, 'routes/travelBotRoutes')).default
-  authRoutes = require(path.join(backendPath, 'routes/authRoutes')).default
-  corsMiddleware = require(path.join(backendPath, 'middleware/cors')).corsMiddleware
-  errorHandler = require(path.join(backendPath, 'middleware/errorHandler')).errorHandler
-  notFoundHandler = require(path.join(backendPath, 'middleware/errorHandler')).notFoundHandler
+  try {
+    cityRoutes = require(path.join(backendPath, 'routes/cityRoutes')).default
+    tripRoutes = require(path.join(backendPath, 'routes/tripRoutes')).default
+    currencyRoutes = require(path.join(backendPath, 'routes/currencyRoutes')).default
+    travelBotRoutes = require(path.join(backendPath, 'routes/travelBotRoutes')).default
+    authRoutes = require(path.join(backendPath, 'routes/authRoutes')).default
+    corsMiddleware = require(path.join(backendPath, 'middleware/cors')).corsMiddleware
+    errorHandler = require(path.join(backendPath, 'middleware/errorHandler')).errorHandler
+    notFoundHandler = require(path.join(backendPath, 'middleware/errorHandler')).notFoundHandler
+    console.log('✅ Loaded backend from TypeScript source')
+  } catch (tsError) {
+    console.error('❌ Failed to load backend routes:', tsError)
+    throw tsError
+  }
 }
 
 // Apply CORS middleware

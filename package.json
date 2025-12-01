@@ -13,7 +13,7 @@
         "prom": "npm run compile && brojs prom-server --port=8099",
         "eslint": "npx eslint ./src/**/*",
         "eslint:fix": "npx eslint ./src/**/* --fix",
-        "dev:backend": "nodemon stubs/api/server.js",
+        "dev:backend": "nodemon",
         "build:backend": "tsc --project tsconfig.backend.json"
     },
     "keywords": [],

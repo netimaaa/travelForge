@@ -1,5 +1,7 @@
 import { City, SavedTrip, CurrencyRates, TravelBotResponse, TravelBotRequest, BudgetBreakdown, AuthResponse, LoginRequest, RegisterRequest, User } from '../types'
 
+// API base URL - uses relative path which will be proxied to backend on port 5000 via webpack devServer
+// or handled by brojs stubs/api if proxy is not configured
 const API_BASE_URL = '/api'
 const TOKEN_KEY = 'budget-compass.auth.token'
 
