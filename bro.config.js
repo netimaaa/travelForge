@@ -6,7 +6,9 @@ module.exports = {
   apiPath: 'stubs/api',
   webpackConfig: {
     output: {
-      publicPath: `/static/${pkg.name}/${process.env.VERSION || pkg.version}/`
+      publicPath: `/static/${pkg.name}/${process.env.VERSION || pkg.version}/`,
+      // Enable CORS for cross-origin requests to static files
+      crossOriginLoading: 'anonymous'
     },
     devServer: {
       historyApiFallback: true,
@@ -31,10 +33,9 @@ module.exports = {
   },
   /* use https://admin.bro-js.ru/ to create config, navigations and features */
   navigations: {
-    'travelforge.main': '/travelforge',
-    'travelforge.login': '/travelforge/login',
-    'travelforge.register': '/travelforge/register',
-    'link.travelforge.auth': '/travelforge/login'
+    "travelforge.register": "/travelforge/register",
+    "travelforge.main": "/travelforge",
+    "travelforge.login": "/travelforge/login"
   },
   features: {
     'travelforge': {
